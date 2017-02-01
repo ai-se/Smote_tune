@@ -1,0 +1,3 @@
+- We will base our project similar to this paper **D'Ambros, Marco, Michele Lanza, and Romain Robbes. "An extensive comparison of bug prediction approaches." In 2010 7th IEEE Working Conference on Mining Software Repositories (MSR 2010), pp. 31-41. IEEE, 2010**.
+- We will be working on various approaches mentioned in this paper and also which has been mentioned recently. We will be providing a comparative study for as many approaches we can work on and will be reporting the results of which one performed better in what scenario. We will take the datasets available from [Promise Repository] (http://openscience.us/repo/defect/bug-reports/).
+- The whole project will be divided into various stages which includes preprocessing, featurization, data miner, statistical results.
