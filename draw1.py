@@ -73,14 +73,22 @@ if __name__ == '__main__':
     for i,j in enumerate(measure_iqr.keys()):
         plt.figure(num=i, figsize=(25, 15))
         plt.subplot(121)
+        M = -1.0
+        m = 1.0
+
+
         for k in measure_iqr[j].keys():
+            if M < max(max(tuned[j][k]),max(measure_med[j][k])) :
+                M = max(max(tuned[j][k]),max(measure_med[j][k]))
+            if m > min(min(tuned[j][k]),min(measure_med[j][k])):
+                m = min(min(tuned[j][k]),min(measure_med[j][k]))
             line,=plt.plot(X,tuned[j][k] ,marker='*', markersize=20, label=k+' tuned')
-            plt.plot(X, measure_med[j][k],linestyle="-.", markersize=20,label=k+' untuned')
+            plt.plot(X, measure_med[j][k],linestyle="-.",color=line.get_color(), markersize=20,label=k+' untuned')
             #plt.ytext(0.04, 0.5, va='center', rotation='vertical', fontsize=11)
             #plt.text(0.04, 0.5,"Rn (Raw Score)", labelpad=100)
         #box = ax.get_position()
         #ax.set_position([box.x0, box.y0, box.width * 0.8, box.height])
-        plt.ylim(-1.0, 1.0)
+        plt.ylim(m, M)
         plt.xticks(X, fileB2,rotation=90)
         plt.ylabel(j, labelpad=30)
         plt.xlabel("Dataset Name", labelpad=30)
