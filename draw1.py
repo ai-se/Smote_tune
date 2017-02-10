@@ -84,4 +84,4 @@ if __name__ == '__main__':
         #plt.axhline(0, linestyle="-.",color='black')
         #plt.legend(loc='center left', bbox_to_anchor=(1, 0.5))
         plt.legend(bbox_to_anchor=(1.05, 1.0), loc=2, borderaxespad=0.)
-        plt.savefig("fault_prediction/fig/"+j+"_tuned.png")
+        plt.savefig("fault_prediction/fig/"+j+"_tuned1.png")
