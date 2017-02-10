@@ -14,12 +14,14 @@ class Result(object):
         self.accuracy = {}
         self.f_score = {}
         self.false_alarm={}
+        self.auc = {}
         self.scores = {
             "Recall": self.get_recall,
             "Precision": self.get_precision,
             "Accuracy": self.get_accuracy,
             "F_score": self.get_f_score,
             "False_alarm":self.get_false_alarm,
+            "AUC":self.auc
         }
 
     def set_recall(self, learner, recall_score):
@@ -66,5 +68,14 @@ class Result(object):
     def get_f_score(self):
         f_score = []
         for k, v in self.f_score.items():
+            f_score.append([k] + v)
+        return f_score
+
+    def set_auc_score(self, learner, auc_val):
+        self.auc[learner] = self.auc.get(learner, []) + [auc_val]
+
+    def get_auc_score(self):
+        f_score = []
+        for k, v in self.auc.items():
             f_score.append([k] + v)
         return f_score

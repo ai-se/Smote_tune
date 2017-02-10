@@ -10,6 +10,7 @@ from stats.sk import rdivDemo
 from stats.ABCD import ABCD
 import numpy as np
 import sys
+from sklearn.metrics import roc_curve, auc
 
 sys.dont_write_bytecode = True
 
@@ -60,19 +61,22 @@ class Learner(object):
                         target_label = 1
                     else:
                         target_label = 0
+                    fpr,tpr, _ = roc_curve(self.data.get_test_label(), predict,pos_label=target_label)
+                    auc1 = auc(fpr, tpr)
                     r_val = stats[target_label][0]
                     p_val = stats[target_label][3]
                     a_val = stats[target_label][4]
                     f_score_val = stats[target_label][5]
                     pf_val=stats[target_label][1]
-                    return r_val, p_val, a_val, f_score_val,pf_val
+                    return r_val, p_val, a_val, f_score_val,pf_val,auc1
 
-                recall, precision, accuracy, f_score,pf = generate_stats(prediction)
+                recall, precision, accuracy, f_score,pf,auc1 = generate_stats(prediction)
                 self.result.set_recall(learner_name, round(recall, round_results))
                 self.result.set_precision(learner_name, round(precision, round_results))
                 self.result.set_accuracy(learner_name, round(accuracy, round_results))
                 self.result.set_f_score(learner_name, round(f_score, round_results))
                 self.result.set_false_alarm(learner_name, round(pf, round_results))
+                self.result.set_auc_score(learner_name, round(auc1, round_results))
 
     def get_recall(self):
         return self.result.get_recall()
@@ -88,6 +92,9 @@ class Learner(object):
 
     def get_false_alarm(self):
         return self.result.get_false_alarm()
+
+    def get_auc(self):
+        return self.result.get_auc_score()
 
     def display_stats(self):
         for k, v in self.result.scores.items():

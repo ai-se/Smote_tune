@@ -22,4 +22,4 @@ class RF(object):
         else:
             target_label = 0
 
-        return stats[target_label][5]
+        return stats[target_label][3]

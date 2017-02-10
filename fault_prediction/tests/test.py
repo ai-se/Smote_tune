@@ -154,10 +154,10 @@ def _test(res=''):
         start_time1 = time.time()
         l=[]
         x = {}
-        measures = ["Recall", "Precision", "Accuracy", "F_score", "False_alarm"]
+        measures = ["Recall", "Precision", "Accuracy", "F_score", "False_alarm", "AUC"]
         for q in measures:
             x[q]=[]
-        for folds in range(25):
+        for folds in range(15):
             pos_shuffle = range(0, len(pos))
             neg_shuffle = range(0, len(neg))
             shuffle(pos_shuffle)
@@ -184,7 +184,9 @@ def _test(res=''):
             x["Precision"].append(model.get_precision()[0][1])
             x["Recall"].append(model.get_recall()[0][1])
             x["False_alarm"].append(model.get_false_alarm()[0][1])
+            x["AUC"].append(model.get_auc()[0][1])
             l.append([v, score, final_para_dic])
+        print(x)
         result[learner] = [x,l,time.time()-start_time1]
     final[res]=result
     print(final)
