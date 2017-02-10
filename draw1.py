@@ -16,7 +16,7 @@ tuned={'synapse': {'KNN': {'AUC': [0.727, 0.696, 0.703, 0.696, 0.724, 0.613, 0.7
 
 if __name__ == '__main__':
     fileB=[]
-    fileB1 = ['xalan', 'log4j', 'xerces', 'poi', 'velocity', 'synapse', 'ant', 'redaktor', 'arc', 'ivy', 'camel']
+    fileB1 = ['velocity', 'synapse', 'ant', 'redaktor', 'arc', 'ivy', 'camel']
 
     font = {
         'size': 50}
@@ -57,7 +57,7 @@ if __name__ == '__main__':
                     measure_iqr[mea][k[0]] = [(np.percentile(k[1:], 75) - np.percentile(k[1:], 25))-(np.percentile(nosmote[f][mea][i][1:], 75) - np.percentile(nosmote[f][mea][i][1:], 25))]
     X = range(len(fileB))
 
-    fileB2 = ['(99) xalan', '(92) log4j', '(74) xerces', '(63) poi', '(34) velocity', '(33) synapse', '(22) ant', '(15) redaktor', '(11) arc', '(11) ivy', '(4) camel']
+    fileB2 = [ '(34) velocity', '(33) synapse', '(22) ant', '(15) redaktor', '(11) arc', '(11) ivy', '(4) camel']
 
     for i,j in enumerate(measure_iqr.keys()):
         plt.figure(num=i, figsize=(25, 15))
