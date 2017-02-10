@@ -27,7 +27,7 @@ class counter():
             # recall
             Sen = self.TP / (self.TP + self.FN)
             # false alarm
-            Spec = self.TN / (self.TN + self.FP)
+            Spec = self.FP / (self.TN + self.FP)
             Prec = self.TP / (self.TP + self.FP)
             Acc = (self.TP + self.TN) / (self.TP + self.FN + self.TN + self.FP)
             F = 2 * (Prec * Sen) / (Prec + Sen)

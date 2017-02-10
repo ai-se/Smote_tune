@@ -22,19 +22,16 @@ class Learner(object):
            :params result --> Result object.
         3) Learner names can be found in config.py
     """
-    def __init__(self, file_name, folds=5, splits=5,smote=True):
+    def __init__(self, samples=[],labels=[], smote=True,v=[],percentage=20):
         super(Learner, self).__init__()
-        self.file_name = file_name
-        self.folds = folds
-        self.splits = splits
+        self.samples = samples
+        self.labels = labels
         self.smote_val=smote
-        if not file_name:
-            raise Exception("Filename is required.")
-        seed(0)
-        self.data = Data()
         self.result = Result()
         self.predict = None
-        ReadFile(file_name, self.data)
+        self.data=Data()
+        self.l=v
+        self.per=percentage
 
     @staticmethod
     def show_available_learners():
@@ -42,9 +39,18 @@ class Learner(object):
 
     def run(self, learners=[k for k in LEARNERS], round_results=3):
         for learner_name in learners:
-            learner = LEARNERS[learner_name](self.data, self.result,
-                                             self.folds, self.splits)
-            self.predict = learner.execute(self.smote_val)
+            learner = LEARNERS[learner_name](self.data, self.result)
+            split = split_two(np.array(self.samples), np.array(self.labels))
+            pos = np.array(split['pos'])
+            neg = np.array(split['neg'])
+            cut_pos, cut_neg = cut_position(pos, neg, percentage=self.per)
+            data_train, train_label, data_test, test_label = divide_train_test(pos, neg, cut_pos, cut_neg)
+            data_train, train_label = learner.execute(self.l, samples=data_train, labels=train_label)
+            self.data.set_train_data(data_train)
+            self.data.set_test_data(data_test)
+            self.data.set_train_label(train_label)
+            self.data.set_test_label(test_label)
+            self.predict = [learner.run()]
             for prediction in self.predict:
                 def generate_stats(predict):
                     abcd = ABCD(before=self.data.get_test_label(), after=predict)
@@ -88,3 +94,23 @@ class Learner(object):
             print(k)
             rdivDemo(v())
             print("")
+
+def cut_position(pos, neg, percentage=0):
+    return int(len(pos) * percentage / 100), int(len(neg) * percentage / 100)
+
+def divide_train_test(pos, neg, cut_pos, cut_neg):
+    data_train, train_label = list(pos)[:cut_pos] + list(neg)[:cut_neg], [1] * (cut_pos) + [0] * (cut_neg)
+    data_test, test_label = list(pos)[cut_pos:] + list(neg)[cut_neg:], [1] * (len(pos) - cut_pos) + [0] * (
+        len(neg) - cut_neg)
+    return np.array(data_train), train_label, np.array(data_test), test_label
+
+def split_two(corpus=np.array([]), label=np.array([])):
+    pos = []
+    neg = []
+    for i, lab in enumerate(label):
+        if lab == 1.0:
+            pos.append(corpus[i])
+        else:
+            neg.append(corpus[i])
+
+    return {'pos': pos, 'neg': neg}
