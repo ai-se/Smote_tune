@@ -2,6 +2,7 @@ from sklearn.tree import DecisionTreeClassifier
 import sys
 from fault_prediction.stats.ABCD import ABCD
 import numpy as np
+from sklearn.metrics import roc_curve, auc
 
 sys.dont_write_bytecode = True
 
@@ -22,5 +23,7 @@ class DT(object):
             target_label = 1
         else:
             target_label = 0
-
-        return stats[target_label][3]
+        #fpr, tpr, _ = roc_curve(test_label, prediction, pos_label=target_label)
+        #auc1 = auc(fpr, tpr)
+        return stats[target_label][1]
+        #return auc1
