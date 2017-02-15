@@ -21,7 +21,7 @@ if __name__ == '__main__':
     fileB=[]
     fileB1 = ['velocity', 'synapse', 'ant', 'redaktor', 'arc', 'ivy', 'camel']
 
-    '''F_final1 = {}
+    F_final1 = {}
     current_dic1 = {}
     para_dict1 = {}
     time1 = {}
@@ -36,10 +36,14 @@ if __name__ == '__main__':
     temp={}
     for i in F_final1.keys():
         temp[i]={}
+        a=0
+        x = []
         for j in F_final1[i].keys():
-            temp[i][j]=F_final1[i][j][0]
-    print(temp)'''
-    temp={}
+            for y in F_final1[i][j][1]:
+                x.append(y[0])
+        temp[i]=zip(*x)
+    print(temp)
+    '''temp={}
     for f in fileB1:
         temp[f]={}
         for l in Accuracy[f].keys():
@@ -57,5 +61,5 @@ if __name__ == '__main__':
                     temp[f][l][m]=Accuracy[f][l][m]
                 elif m == "False_alarm":
                     temp[f][l][m]=False_alarm[f][l][m]
-    print(temp)
+    print(temp)'''
 
