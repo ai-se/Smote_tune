@@ -83,7 +83,7 @@ class DE(object):
         generation = []
 
         for a, b in zip(current_generation, trial_generation):
-            if (a.fit1+np.median(a.fit2)) <= (b.fit1+np.median(b.fit2)):
+            if (a.fit1+np.median(a.fit2)) >= (b.fit1+np.median(b.fit2)):
                 generation.append(a)
             else:
                 generation.append(b)
@@ -104,7 +104,7 @@ class DE(object):
         best = 0
 
         for i, x in enumerate(population):
-            if (x.fit1+np.median(x.fit2)) <= max_fitness:
+            if (x.fit1+np.median(x.fit2)) >= max_fitness:
                 best = i
                 max_fitness = x.fit1+np.median(x.fit2)
         return best
@@ -168,7 +168,7 @@ def _test(res=''):
             de = DE(F=0.7, CR=0.3, x='rand')
 
             global max_fitness
-            max_fitness = 1
+            max_fitness = 0
             pop = [[choice(bounds[0]), choice(bounds[1]),
                     choice(bounds[2]), uniform(bounds[3][0], bounds[3][1])]
                    for _ in range(10)]
@@ -190,7 +190,7 @@ def _test(res=''):
         result[learner] = [x,l,time.time()-start_time1]
     final[res]=result
     print(final)
-    with open('../dump/' + res + '_pf.pickle', 'wb') as handle:
+    with open('../dump/' + res + '_accuracy.pickle', 'wb') as handle:
         pickle.dump(final, handle)
 
 if __name__ == '__main__':

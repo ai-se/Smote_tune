@@ -25,5 +25,5 @@ class DT(object):
             target_label = 0
         #fpr, tpr, _ = roc_curve(test_label, prediction, pos_label=target_label)
         #auc1 = auc(fpr, tpr)
-        return stats[target_label][1]
+        return stats[target_label][4]
         #return auc1
