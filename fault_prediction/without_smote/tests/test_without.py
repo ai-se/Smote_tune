@@ -1,17 +1,21 @@
-from fault_prediction import Learner
-from fault_prediction.stats.demos import *
+from fault_prediction1 import Learner
+from fault_prediction1.stats.demos import *
 import sys
 import pickle
 from random import seed
 
 sys.dont_write_bytecode = True
+# import os
+# path=os.getcwd()+'/../'
+# print(path)
+# sys.path.insert(1,path)
 
 fil = ['tomcat', 'xalan','synapse', 'xerces', 'camel', 'prop', 'ant', 'arc', 'poi', 'ivy', 'velocity', 'redaktor', 'log4j', 'jedit']
 
 def _test(res=''):
     file = res
     seed(1)
-    learner = Learner('../data/' + file + '.csv',folds=5,splits=5, smote=False)
+    learner = Learner('../data/' + file + '.csv',folds=3,splits=5, smote=False)
     learner.run()
     result = {}
     x = {}
