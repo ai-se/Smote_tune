@@ -190,7 +190,7 @@ def _test(res=''):
         result[learner] = [x,l,time.time()-start_time1]
     final[res]=result
     print(final)
-    with open('../dump/' + res + '_accuracy.pickle', 'wb') as handle:
+    with open('../dump/auc/' + res + '_auc1.pickle', 'wb') as handle:
         pickle.dump(final, handle)
 
 if __name__ == '__main__':
