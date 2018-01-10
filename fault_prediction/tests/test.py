@@ -135,6 +135,7 @@ def _test(res=''):
     filepath = '../data/'+res+'.csv'
 
     seed(1)
+    np.random.seed(1)
     read=ReadFile(filepath)
     data,labels=read.build_table()
 
