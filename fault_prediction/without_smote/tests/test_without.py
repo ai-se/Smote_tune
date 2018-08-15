@@ -24,7 +24,7 @@ def _test(res=''):
     x["Precision"] = learner.get_precision()
     x["Recall"] = learner.get_recall()
     x["False_alarm"] = learner.get_false_alarm()
-    x["AUC"] = learner.get_false_alarm()
+    x["AUC"] = learner.get_auc()
     result[file] = x
     print(x)
     with open('../dump/new/without/' + file + '.pickle', 'wb') as handle:
